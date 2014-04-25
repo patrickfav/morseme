@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="at.favre.app.morseme.MainActivity" >
     <item android:id="@+id/action_settings"
+          android:icon="@drawable/ic_action_action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 </menu>

@@ -9,8 +9,31 @@
     tools:context="at.favre.app.morseme.MainActivity$PlaceholderFragment">
 
     <TextView
-        android:text="@string/hello_world"
+        android:text="Send Morse"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="54sp"
+        android:fontFamily="sans-serif-thin"
+        android:textStyle="normal"
+        android:id="@+id/textView"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:lines="3"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/imageView"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:src="@drawable/ic_social_send_now"
+        android:layout_alignBottom="@+id/editText"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
 
 </RelativeLayout>

@@ -2,7 +2,20 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
-        <!-- Customize your theme here. -->
+        <item name="android:windowActionBarOverlay">false</item>
+        <item name="android:actionBarStyle">@style/action_bar_theme</item>
+
+        <!-- Support library compatibility -->
+        <item name="windowActionBarOverlay">false</item>
+        <item name="actionBarStyle">@style/action_bar_theme</item>
     </style>
 
+    <style name="action_bar_theme" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:background">#16A085</item>
+        <item name="android:titleTextStyle">@style/action_bar_text</item>
+    </style>
+
+    <style name="action_bar_text">
+        <item name="android:textSize">18dp</item>
+    </style>
 </resources>
