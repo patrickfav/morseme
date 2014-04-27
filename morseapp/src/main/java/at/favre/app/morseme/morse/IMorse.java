@@ -2,6 +2,10 @@ package at.favre.app.morseme.morse;
 
 /**
  * Created by PatrickF on 26.04.2014.
+ *
+ * http://en.wikipedia.org/wiki/Morse_code
+ *
+ * International Morse Code
  */
 public class IMorse {
 

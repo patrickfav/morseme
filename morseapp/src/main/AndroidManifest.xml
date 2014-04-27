@@ -2,13 +2,24 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="at.favre.app.morseme" >
 
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <uses-feature android:name="android.hardware.camera.flash" android:required="false" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="at.favre.app.morseme.MainActivity"
+            android:name=".MessageActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,6 +27,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- BroadcastReceiver that listens for incoming SMS messages -->
+        <receiver android:name="at.favre.app.morseme.SmsReceiver">
+            <intent-filter android:priority="999" >
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
     </application>
+
 
 </manifest>

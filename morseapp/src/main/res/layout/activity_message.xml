@@ -3,5 +3,5 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="at.favre.app.morseme.MainActivity"
+    tools:context="at.favre.app.morseme.MessageActivity"
     tools:ignore="MergeRootFrame" />
