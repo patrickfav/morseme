@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +21,12 @@ import android.widget.EditText;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 
+import at.favre.app.morseme.application.MorseApplication;
+import at.favre.app.morseme.application.PreferenceHandler;
 import at.favre.app.morseme.morse.MorseUtil;
 import at.favre.app.morseme.morse.translators.FlashlightMorseTranslator;
+import at.favre.app.morseme.morse.translators.ITranslatorListener;
 import at.favre.app.morseme.morse.translators.SineMorseTranslator;
-import at.favre.app.morseme.morse.translators.TranslatorListener;
 import at.favre.app.morseme.morse.translators.VibrateMorseTranslator;
 import at.favre.app.morseme.views.FlowLayout;
 
@@ -38,6 +41,7 @@ public class MessageFragment extends Fragment {
 
 	private Typeface myTypeface;
 	private AsyncTask<Void,Void,Void> currentTask;
+	private PreferenceHandler pref;
 
 	public MessageFragment() {
 	}
@@ -45,7 +49,7 @@ public class MessageFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		pref = ((MorseApplication) getActivity().getApplication()).getPreferenceHandler();
 		myTypeface = Typeface.createFromAsset(getActivity().getAssets(), "morse.ttf");
 
 	}
@@ -62,9 +66,9 @@ public class MessageFragment extends Fragment {
 		rootView.findViewById(R.id.bt_send).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Uri uri = Uri.parse("smsto:12346556");
+				Uri uri = Uri.parse("smsto:");
 				Intent it = new Intent(Intent.ACTION_SENDTO, uri);
-				it.putExtra("sms_body", "Here you can set the SMS text to be sent");
+				it.putExtra("sms_body", SmsReceiver.MORSE_PREFIX+etMessage.getText().toString().trim());
 				startActivity(it);
 			}
 		});
@@ -100,45 +104,60 @@ public class MessageFragment extends Fragment {
 		rootView.findViewById(R.id.btn_sine).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(final View view) {
-				view.setActivated(true);
-				checkCurrentTask();
-				currentTask = new SineMorseTranslator(MorseUtil.generateMorseSequenze(etMessage.getText().toString()), new TranslatorListener() {
-					@Override
-					public void onMorseComplete(boolean canceld) {
-						view.setActivated(false);
-					}
-				});
-				currentTask.execute();
+				if(view.isActivated()) {
+					checkCurrentAndCancelTask();
+					view.setActivated(false);
+				} else {
+					view.setActivated(true);
+					checkCurrentAndCancelTask();
+					currentTask = new SineMorseTranslator(MorseUtil.generateMorseSequenze(etMessage.getText().toString()), new ITranslatorListener() {
+						@Override
+						public void onMorseComplete(boolean canceld) {
+							view.setActivated(false);
+						}
+					},pref.getSineMorseLength(),pref.getSinePauseLength());
+					currentTask.execute();
+				}
 			}
 		});
 
 		rootView.findViewById(R.id.btn_vibrate).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(final View view) {
-				view.setActivated(true);
-				checkCurrentTask();
-				currentTask = new VibrateMorseTranslator(MorseUtil.generateMorseSequenze(etMessage.getText().toString()),(Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE), new TranslatorListener() {
-					@Override
-					public void onMorseComplete(boolean canceld) {
-						view.setActivated(false);
-					}
-				});
-				currentTask.execute();
+				if (view.isActivated()) {
+					checkCurrentAndCancelTask();
+					view.setActivated(false);
+				} else {
+					view.setActivated(true);
+					checkCurrentAndCancelTask();
+					currentTask = new VibrateMorseTranslator(MorseUtil.generateMorseSequenze(etMessage.getText().toString()), new ITranslatorListener() {
+						@Override
+						public void onMorseComplete(boolean canceld) {
+							view.setActivated(false);
+						}
+					},pref.getVibratorMorseLength(),pref.getVibratorPauseLength(),(Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE));
+					currentTask.execute();
+				}
 			}
 		});
 
 		rootView.findViewById(R.id.btn_torch).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(final View view) {
-				view.setActivated(true);
-				checkCurrentTask();
-				currentTask = new FlashlightMorseTranslator(MorseUtil.generateMorseSequenze(etMessage.getText().toString()),new TranslatorListener() {
-					@Override
-					public void onMorseComplete(boolean canceld) {
-						view.setActivated(false);
-					}
-				});
-				currentTask.execute();
+				if(view.isActivated()) {
+					checkCurrentAndCancelTask();
+					view.setActivated(false);
+				} else {
+					view.setActivated(true);
+					checkCurrentAndCancelTask();
+					currentTask = new FlashlightMorseTranslator(MorseUtil.generateMorseSequenze(etMessage.getText().toString()), new ITranslatorListener() {
+						@Override
+						public void onMorseComplete(boolean canceld) {
+							view.setActivated(false);
+						}
+					},pref.getTorchMorseLength(),pref.getTorchPauseLength());
+					currentTask.execute();
+				}
 			}
 		});
 
@@ -150,10 +169,11 @@ public class MessageFragment extends Fragment {
 		tv.setTypeface(myTypeface,Typeface.BOLD);
 		tv.setTextSize(getResources().getDimensionPixelSize(R.dimen.morseTextSize));
 		tv.setTextColor(getResources().getColor(R.color.dirtyWhiteBgTextColor));
+		tv.setPadding(0,(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics()),0,0);
 		return tv;
 	}
 
-	private void checkCurrentTask() {
+	private void checkCurrentAndCancelTask() {
 		if(currentTask != null && !currentTask.isCancelled()) {
 			currentTask.cancel(true);
 		}

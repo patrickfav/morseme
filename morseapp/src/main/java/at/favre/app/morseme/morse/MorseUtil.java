@@ -10,7 +10,7 @@ public class MorseUtil {
 
 	public static List<EMorsePart> generateMorseSequenze(String content) {
 		List<EMorsePart> sequenze = new ArrayList<EMorsePart>();
-		String contentUppercase = content.toUpperCase();
+		String contentUppercase = content.trim().toUpperCase();
 		for (int i = 0; i < content.length(); i++) {
 			EMorseSymbol symbol = EMorseSymbol.getBySymbol(contentUppercase.charAt(i));
 			if (symbol != null) {

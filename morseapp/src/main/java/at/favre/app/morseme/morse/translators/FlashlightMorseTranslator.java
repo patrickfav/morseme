@@ -2,78 +2,33 @@ package at.favre.app.morseme.morse.translators;
 
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
-import android.os.AsyncTask;
-import android.os.SystemClock;
 import android.util.Log;
 
 import java.io.IOException;
 import java.util.List;
 
 import at.favre.app.morseme.morse.EMorsePart;
-import at.favre.app.morseme.morse.MorseUtil;
 
 /**
  * Created by PatrickF on 26.04.2014.
  */
-public class FlashlightMorseTranslator extends AsyncTask<Void,Void,Void>{
-
-	private static final String TAG = FlashlightMorseTranslator.class.getSimpleName();
-	private List<EMorsePart> sequenze;
+public class FlashlightMorseTranslator extends ATranslator{
 	private Camera camera;
 	private Camera.Parameters parameters;
-	private TranslatorListener listener;
-	private boolean run;
 	private boolean isFlashOn;
 
-	public FlashlightMorseTranslator(List<EMorsePart> sequenze,TranslatorListener listener) {
-		this.listener = listener;
-		this.sequenze = sequenze;
-		run= false;
+	public FlashlightMorseTranslator(List<EMorsePart> sequenze, ITranslatorListener listener, long morseLengthMs, long pauseLengthMs) {
+		super(sequenze, listener, morseLengthMs, pauseLengthMs);
 	}
+
 
 	@Override
 	protected Void doInBackground(Void... voids) {
+		initializeFlashlight();
 		play();
+		closeFlashlight();
 		return null;
 	}
-
-	@Override
-	protected void onPostExecute(Void aVoid) {
-		super.onPostExecute(aVoid);
-		if(listener != null) {
-			listener.onMorseComplete(false);
-		}
-	}
-
-	@Override
-	protected void onCancelled() {
-		super.onCancelled();
-		run = false;
-	}
-
-	private void play() {
-		Log.d(TAG,"Playing "+sequenze);
-		run=true;
-		initializeFlashlight();
-		for (EMorsePart eMorsePart : sequenze) {
-			if(run) {
-				long lengthMs = MorseUtil.getAtomicMorseLength()*eMorsePart.getRelativeLength();
-				if (eMorsePart.isPause()) {
-					SystemClock.sleep(lengthMs);
-				} else {
-					turnOnFlash();
-					SystemClock.sleep(lengthMs);
-					turnOffFlash();
-				}
-			} else {
-				break;
-			}
-		}
-		closeFlashlight();
-		run=false;
-		Log.d(TAG,"done morse");
-	}
-
 
 	private void initializeFlashlight() {
 		if (camera == null) {
@@ -86,10 +41,8 @@ public class FlashlightMorseTranslator extends AsyncTask<Void,Void,Void>{
 		}
 	}
 
-	/*
-	 * Turning On flash
-	 */
-	private void turnOnFlash() {
+	@Override
+	protected void stopTranslator() {
 		if (!isFlashOn) {
 			if (camera == null || parameters == null) {
 				return;
@@ -107,10 +60,9 @@ public class FlashlightMorseTranslator extends AsyncTask<Void,Void,Void>{
 			isFlashOn = true;
 		}
 	}
-	/*
-	 * Turning Off flash
-	 */
-	private void turnOffFlash() {
+
+	@Override
+	protected void startTranslator(long length) {
 		if (isFlashOn) {
 			if (camera == null || parameters == null) {
 				return;
@@ -122,6 +74,7 @@ public class FlashlightMorseTranslator extends AsyncTask<Void,Void,Void>{
 			isFlashOn = false;
 		}
 	}
+
 	private void closeFlashlight() {
 		if (camera != null) {
 			camera.release();

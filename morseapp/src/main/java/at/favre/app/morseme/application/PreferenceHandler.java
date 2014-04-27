@@ -29,39 +29,39 @@ public class PreferenceHandler {
 		getPreferences().edit().putLong(SINE_MORSE_LENGTH_MS,ms).commit();
 	}
 	public long getSineMorseLength() {
-		return getPreferences().getLong(SINE_MORSE_LENGTH_MS,150l);
+		return getPreferences().getLong(SINE_MORSE_LENGTH_MS,75l);
 	}
 	public void setSinePauseLength(long ms) {
 		getPreferences().edit().putLong(SINE_PAUSE_LENGTH_MS,ms).commit();
 	}
 	public long getSinePauseLength() {
-		return getPreferences().getLong(SINE_PAUSE_LENGTH_MS,150l);
+		return getPreferences().getLong(SINE_PAUSE_LENGTH_MS,50l);
 	}
 
 	public void setVibratorMorseLength(long ms) {
 		getPreferences().edit().putLong(VIBRATOR_MORSE_LENGTH_MS,ms).commit();
 	}
 	public long getVibratorMorseLength() {
-		return getPreferences().getLong(VIBRATOR_MORSE_LENGTH_MS,250l);
+		return getPreferences().getLong(VIBRATOR_MORSE_LENGTH_MS,200l);
 	}
 	public void setVibratorPauseLength(long ms) {
 		getPreferences().edit().putLong(VIBRATOR_PAUSE_LENGTH_MS,ms).commit();
 	}
 	public long getVibratorPauseLength() {
-		return getPreferences().getLong(VIBRATOR_PAUSE_LENGTH_MS,250l);
+		return getPreferences().getLong(VIBRATOR_PAUSE_LENGTH_MS,200l);
 	}
 
 	public void setTorchMorseLength(long ms) {
 		getPreferences().edit().putLong(TORCH_MORSE_LENGTH_MS,ms).commit();
 	}
 	public long getTorchMorseLength() {
-		return getPreferences().getLong(TORCH_MORSE_LENGTH_MS,250l);
+		return getPreferences().getLong(TORCH_MORSE_LENGTH_MS,200l);
 	}
 	public void setTorchPauseLength(long ms) {
 		getPreferences().edit().putLong(TORCH_PAUSE_LENGTH_MS,ms).commit();
 	}
 	public long getTorchPauseLength() {
-		return getPreferences().getLong(TORCH_PAUSE_LENGTH_MS,250l);
+		return getPreferences().getLong(TORCH_PAUSE_LENGTH_MS,200l);
 	}
 
 
