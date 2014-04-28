@@ -11,7 +11,7 @@ import at.favre.app.morseme.morse.EMorsePart;
 /**
  * Created by PatrickF on 27.04.2014.
  */
-public abstract class ATranslator extends AsyncTask<Void,Void,Void> {
+public abstract class ATranslator extends AsyncTask<Void,Integer,Void> {
 	protected static final String TAG = FlashlightMorseTranslator.class.getSimpleName();
 	protected List<EMorsePart> sequenze;
 	protected ITranslatorListener listener;
@@ -40,11 +40,24 @@ public abstract class ATranslator extends AsyncTask<Void,Void,Void> {
 		}
 	}
 
-	protected void play() {
+    @Override
+    protected void onProgressUpdate(Integer... values) {
+        super.onProgressUpdate(values);
+        if(listener != null) {
+            listener.currentPlayedLetter(values[0]);
+        }
+    }
+
+    protected void play() {
 		Log.d(TAG, "Playing " + sequenze);
-		for (EMorsePart eMorsePart : sequenze) {
+        int i;
+        publishProgress(i=0);
+        for (EMorsePart eMorsePart : sequenze) {
 			if(!isCancelled()) {
 				if (eMorsePart.isPause()) {
+                    if(eMorsePart.equals(EMorsePart.LETTER_SPACE)) {
+                        publishProgress(++i);
+                    }
 					SystemClock.sleep(pauseLengthMs*eMorsePart.getRelativeLength());
 				} else {
 					startTranslator(morseLengthMs*eMorsePart.getRelativeLength());

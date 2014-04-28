@@ -48,7 +48,12 @@ public class SmsReceiver extends BroadcastReceiver {
 										public void onMorseComplete(boolean canceld) {
 
 										}
-									},pref.getVibratorMorseLength(),pref.getVibratorPauseLength(),(Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE));
+
+                                        @Override
+                                        public void currentPlayedLetter(int letterIndex) {
+
+                                        }
+                                    },pref.getVibratorMorseLength(),pref.getVibratorPauseLength(),(Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE));
 									translator.execute();
 								}
 

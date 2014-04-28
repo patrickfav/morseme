@@ -5,4 +5,5 @@ package at.favre.app.morseme.morse.translators;
  */
 public interface ITranslatorListener {
 	public void onMorseComplete(boolean canceld);
+    public void currentPlayedLetter(int letterIndex);
 }

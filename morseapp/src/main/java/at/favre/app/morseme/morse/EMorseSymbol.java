@@ -44,6 +44,8 @@ public enum EMorseSymbol {
 	Y(new EMorsePart[]{EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.LONG}, 'Y'),
 	Z(new EMorsePart[]{EMorsePart.LONG, EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.SHORT}, 'Z'),
 
+    SPACE(new EMorsePart[]{EMorsePart.WORD_SPACE}, ' '),
+
 	DIGIT_1(new EMorsePart[]{EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.LONG, EMorsePart.LONG, EMorsePart.LONG}, '1'),
 	DIGIT_2(new EMorsePart[]{EMorsePart.SHORT, EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.LONG, EMorsePart.LONG}, '2'),
 	DIGIT_3(new EMorsePart[]{EMorsePart.SHORT, EMorsePart.SHORT, EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.LONG}, '3'),
@@ -53,10 +55,35 @@ public enum EMorseSymbol {
 	DIGIT_7(new EMorsePart[]{EMorsePart.LONG, EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.SHORT, EMorsePart.SHORT}, '7'),
 	DIGIT_8(new EMorsePart[]{EMorsePart.LONG, EMorsePart.LONG, EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.SHORT}, '8'),
 	DIGIT_9(new EMorsePart[]{EMorsePart.LONG, EMorsePart.LONG, EMorsePart.LONG, EMorsePart.LONG, EMorsePart.SHORT}, '9'),
-	DIGIT_0(new EMorsePart[]{EMorsePart.LONG, EMorsePart.LONG, EMorsePart.LONG, EMorsePart.LONG, EMorsePart.LONG}, '0');
+	DIGIT_0(new EMorsePart[]{EMorsePart.LONG, EMorsePart.LONG, EMorsePart.LONG, EMorsePart.LONG, EMorsePart.LONG}, '0'),
+
+    PEROID(new EMorsePart[]{EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.SHORT}, '.'),
+    COMMA(new EMorsePart[]{EMorsePart.LONG, EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.LONG}, ','),
+    QUESTION_MARK(new EMorsePart[]{EMorsePart.SHORT, EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.SHORT}, '?'),
+    APOSTROPH(new EMorsePart[]{EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.LONG, EMorsePart.LONG, EMorsePart.LONG, EMorsePart.SHORT}, '\''),
+    EXCLAMATION_MARK(new EMorsePart[]{EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.LONG}, '!'),
+
+    SLASH(new EMorsePart[]{EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.SHORT}, '/'),
+    PARA_OPEN(new EMorsePart[]{EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.LONG, EMorsePart.SHORT}, '('),
+    PARA_CLOSE(new EMorsePart[]{EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.LONG}, ')'),
+
+    AMPERSAND(new EMorsePart[]{EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.SHORT, EMorsePart.SHORT}, '&'),
+    COLON(new EMorsePart[]{EMorsePart.LONG, EMorsePart.LONG, EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.SHORT, EMorsePart.SHORT}, ':'),
+    SEMI_COLON(new EMorsePart[]{EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.SHORT}, ';'),
+    DOUBLE_DASH(new EMorsePart[]{EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.SHORT, EMorsePart.SHORT, EMorsePart.LONG}, '='),
+
+    PLUS(new EMorsePart[]{EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.SHORT}, '+'),
+    MINUS(new EMorsePart[]{EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.SHORT, EMorsePart.SHORT, EMorsePart.SHORT, EMorsePart.LONG}, '-'),
+    UNDERSCORE(new EMorsePart[]{EMorsePart.SHORT, EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.LONG}, '_'),
+    QUOTE_MARK(new EMorsePart[]{EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.SHORT}, '"'),
+
+    DOLAR(new EMorsePart[]{EMorsePart.SHORT, EMorsePart.SHORT, EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.SHORT, EMorsePart.LONG}, '$'),
+    AT_SIGN(new EMorsePart[]{EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.LONG, EMorsePart.SHORT, EMorsePart.LONG, EMorsePart.SHORT}, '@');
 
 
-	private List<EMorsePart> parts;
+
+
+    private List<EMorsePart> parts;
 	private char symbol;
 
 	private EMorseSymbol(EMorsePart[] parts, char symbol) {
