@@ -55,10 +55,10 @@ public abstract class ATranslator extends AsyncTask<Void,Integer,Void> {
         for (EMorsePart eMorsePart : sequenze) {
 			if(!isCancelled()) {
 				if (eMorsePart.isPause()) {
+					SystemClock.sleep(pauseLengthMs*eMorsePart.getRelativeLength());
                     if(eMorsePart.equals(EMorsePart.LETTER_SPACE)) {
                         publishProgress(++i);
                     }
-					SystemClock.sleep(pauseLengthMs*eMorsePart.getRelativeLength());
 				} else {
 					startTranslator(morseLengthMs*eMorsePart.getRelativeLength());
 					SystemClock.sleep(morseLengthMs*eMorsePart.getRelativeLength());

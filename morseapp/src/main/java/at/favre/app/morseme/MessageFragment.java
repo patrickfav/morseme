@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -111,6 +112,7 @@ public class MessageFragment extends Fragment implements View.OnClickListener {
         return rootView;
     }
 
+
     private void switchMorseTextAndButtons(boolean newTextEmpty) {
         final Animation anim;
         View wrapper = getView().findViewById(R.id.morseTextWrapper);
@@ -158,7 +160,44 @@ public class MessageFragment extends Fragment implements View.OnClickListener {
         ((ActionBarActivity) getActivity()).getSupportActionBar().hide();
     }
 
-    @Override
+	@Override
+	public void onResume() {
+		super.onResume();
+		prepareStartAnimation(getView());
+	}
+
+
+	private void prepareStartAnimation(final View rootView) {
+//		getView().findViewById(R.id.textView).setTranslationY(100);
+		final Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.alpha_out_long);
+		anim.setAnimationListener(new Animation.AnimationListener() {
+			@Override
+			public void onAnimationStart(Animation animation) {
+
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				rootView.findViewById(R.id.darkWrapper).setVisibility(View.GONE);
+				final Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_from_top);
+				getView().findViewById(R.id.textView).startAnimation(anim);
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+
+			}
+		});
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				rootView.findViewById(R.id.darkWrapper).startAnimation(anim);
+
+			}
+		},900);
+	}
+
+	@Override
     public void onPause() {
         super.onPause();
         checkCurrentAndCancelTask();

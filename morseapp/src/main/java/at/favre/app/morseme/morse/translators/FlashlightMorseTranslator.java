@@ -42,7 +42,7 @@ public class FlashlightMorseTranslator extends ATranslator{
 	}
 
 	@Override
-	protected void stopTranslator() {
+	protected void startTranslator(long length) {
 		if (!isFlashOn) {
 			if (camera == null || parameters == null) {
 				return;
@@ -54,7 +54,7 @@ public class FlashlightMorseTranslator extends ATranslator{
 			try {
 				camera.setPreviewTexture(new SurfaceTexture(0));
 			} catch (IOException e) {
-				Log.e(TAG,"Could not set camer preview",e);
+				Log.e(TAG,"Could not set camera preview",e);
 			}
 			camera.startPreview();
 			isFlashOn = true;
@@ -62,7 +62,7 @@ public class FlashlightMorseTranslator extends ATranslator{
 	}
 
 	@Override
-	protected void startTranslator(long length) {
+	protected void stopTranslator() {
 		if (isFlashOn) {
 			if (camera == null || parameters == null) {
 				return;

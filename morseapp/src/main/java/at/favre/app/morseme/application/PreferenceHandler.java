@@ -55,13 +55,13 @@ public class PreferenceHandler {
 		getPreferences().edit().putLong(TORCH_MORSE_LENGTH_MS,ms).commit();
 	}
 	public long getTorchMorseLength() {
-		return getPreferences().getLong(TORCH_MORSE_LENGTH_MS,200l);
+		return getPreferences().getLong(TORCH_MORSE_LENGTH_MS,300l);
 	}
 	public void setTorchPauseLength(long ms) {
 		getPreferences().edit().putLong(TORCH_PAUSE_LENGTH_MS,ms).commit();
 	}
 	public long getTorchPauseLength() {
-		return getPreferences().getLong(TORCH_PAUSE_LENGTH_MS,200l);
+		return getPreferences().getLong(TORCH_PAUSE_LENGTH_MS,300l);
 	}
 
 
