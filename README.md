@@ -12,7 +12,7 @@ and use at your own risk.
 
 ![Animation](https://github.com/patrickfav/morseme/blob/master/misc/animation.gif?raw=true)
 
-# Licences
+# License
 
 Copyright 2016 Patrick Favre-Bulle
 
