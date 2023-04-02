@@ -1,5 +1,7 @@
 
-# ![logo](https://raw.githubusercontent.com/patrickfav/morseme/main/misc/morse_icon24.png) Morseme
+# Morseme
+
+![logo](https://raw.githubusercontent.com/patrickfav/morseme/main/misc/morse_icon24.png)
 
 A very simple Android app that can morse given input through audio, vibration and light flash.
 It also has the feature to morse (with vibrate) a SMS you receive if the SMS starts with "morse:",
