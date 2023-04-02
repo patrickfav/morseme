@@ -1,21 +1,21 @@
 
-# ![logo](https://github.com/patrickfav/morseme/blob/main/misc/morse_icon24.png) Morseme
+# ![logo](https://raw.githubusercontent.com/patrickfav/morseme/main/misc/morse_icon24.png) Morseme
 
 A very simple Android app that can morse given input through audio, vibration and light flash.
 It also has the feature to morse (with vibrate) a SMS you receive if the SMS starts with "morse:",
 so you could receive messages without anybody noticing. Of course, nobody can really read/feel
 morse this does not have any practical purpose of course :)
 
-![Screenshot](https://github.com/patrickfav/morseme/blob/main/misc/screenshot.png?raw=true)
+![Screenshot](https://raw.githubusercontent.com/patrickfav/morseme/main/misc/screenshot.png)
 
 It is not considered release-ready, it was just a fun little project. Enjoy
 and use at your own risk.
 
-![Animation](https://github.com/patrickfav/morseme/blob/main/misc/animation.gif?raw=true)
+![Animation](https://raw.githubusercontent.com/patrickfav/morseme/main/misc/animation.gif)
 
 # License
 
-Copyright 2016 Patrick Favre-Bulle
+Copyright 2014 Patrick Favre-Bulle
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
